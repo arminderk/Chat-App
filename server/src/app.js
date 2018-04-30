@@ -22,14 +22,12 @@ app.post('/register', (req, res) => {
     var db = req.db;
     var email = req.body.email;
     var password = req.body.password;
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
+    var username = req.body.username;
 
     var newUser = new User({
+        username: username,
         email: email,
-        password: password,
-        first_name: first_name,
-        last_name: last_name
+        password: password
     });
 
     newUser.save(function(error) {

@@ -3,15 +3,15 @@
     <v-content>
       <v-container>
         <h1 class="text-xs-center">{{msg}}</h1> 
+        <v-alert id="error-alert" v-model="alert" type="error" dismissible>
+          Required fields can't be blank
+        </v-alert>
         <v-form v-model="valid">
           <v-text-field
-            label="First Name"
-            v-model="first_name"
-            :rules="firstNameRules"
+            label="Username"
+            v-model="username"
+            :rules="usernameRules"
             required
-          ></v-text-field>
-          <v-text-field
-            label="Last Name"
           ></v-text-field>
           <v-text-field
             label="E-mail"
@@ -48,9 +48,10 @@ export default {
     return {
       msg: 'Register',
       valid: false,
-      first_name: '',
-      firstNameRules: [
-        v => !!v || 'First name is required'
+      alert: false,
+      username: '',
+      usernameRules: [
+        v => !!v || 'Username is required'
       ],
       password: '',
       passwordRules: [
@@ -66,11 +67,17 @@ export default {
   },
   methods: {
     async addUser() {
-      await RegisterService.addUser({
-        email: this.email,
-        password: this.password
-      })
-      this.$router.push({ name: 'Home'})
+      if(this.email !== "" && this.password !== "" && this.username !== "") {
+        await RegisterService.addUser({
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+        this.$router.push({ name: 'Home'})
+      }
+      else {
+        this.alert = true;
+      }
     }
   }
 }
@@ -82,5 +89,8 @@ export default {
   }
   a {
     text-decoration: none;
+  }
+  #error-alert {
+    margin: 20px 0 40px 0;
   }
 </style>
