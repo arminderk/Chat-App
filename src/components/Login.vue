@@ -3,6 +3,9 @@
     <v-content>
       <v-container>
         <h1 class="text-xs-center">{{msg}}</h1> 
+        <v-alert id="login-alert" v-model="alert" type="error" dismissible>
+          Wrong Username/Password
+        </v-alert>
         <v-form v-model="valid">
           <v-text-field
             label="Username"
@@ -39,6 +42,7 @@ export default {
     return {
       msg: 'Login',
       valid: false,
+      alert: false,
       username: '',
       usernameRules: [
         v => !!v || 'Username is required'
@@ -64,11 +68,13 @@ export default {
           }
         })
 
+        // Check if successful login
         if(this.login === true) {
           this.$router.push({ name: 'Home' });
         }
         else {
           this.$router.push({ name: 'Login' });
+          this.alert = true;
         }
       }
     }
@@ -82,5 +88,8 @@ export default {
   }
   a {
     text-decoration: none;
+  }
+  #login-alert{ 
+    margin: 20px 0 40px 0; 
   }
 </style>
