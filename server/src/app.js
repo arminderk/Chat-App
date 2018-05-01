@@ -30,11 +30,13 @@ app.post('/register', (req, res) => {
 
     newUser.save(function(error) {
         if(error) {
-            console.log(error);
+            res.send({
+                error: error
+            })
         }
         res.send({
             success: true,
-            message: "User added!"
+            userID: newUser._id
         })
     });
 });
@@ -49,7 +51,7 @@ app.get('/login', (req, res) => {
         if(error) {
             console.log(error);
         }
-        if(user[0].password === password) {
+        if(user.length !== 0 && user[0].password === password) {
             res.send({
                 login: true,
                 userID: user[0]._id 

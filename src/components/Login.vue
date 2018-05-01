@@ -51,8 +51,7 @@ export default {
       passwordRules: [
         v => !!v || 'Password is required',
         v => v.length <= 10 || 'Password must be less than 10 characters'
-      ],
-      login: false
+      ]
     }
   },
   methods: {
@@ -62,20 +61,15 @@ export default {
           username: this.username,
           password: this.password
         }).then(response => {
-          console.log(response.data.userID);
           if(response.data.login === true) {
-            this.login = true;
+            let userID = response.data.userID;
+            this.$router.push({ name: 'Chatroom', params: { userID }});
+          }
+          else {
+            this.$router.push({ name: 'Login' });
+            this.alert = true;
           }
         })
-
-        // Check if successful login
-        if(this.login === true) {
-          this.$router.push({ name: 'Home' });
-        }
-        else {
-          this.$router.push({ name: 'Login' });
-          this.alert = true;
-        }
       }
     }
   }

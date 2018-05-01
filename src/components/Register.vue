@@ -60,8 +60,12 @@ export default {
         await RegisterService.addUser({
           username: this.username,
           password: this.password
+        }).then(response => {
+          if(response.data.success === true) {
+            let userID = response.data.userID;
+            this.$router.push({ name: 'Chatroom', params: { userID }})
+          }
         })
-        this.$router.push({ name: 'Home'})
       }
       else {
         this.alert = true;
