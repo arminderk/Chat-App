@@ -13,12 +13,6 @@
             :rules="usernameRules"
             required
           ></v-text-field>
-          <v-text-field
-            label="E-mail"
-            v-model="email"
-            :rules="emailRules"
-            required
-          ></v-text-field>
           <br />
           <v-text-field
             label="Password"
@@ -57,20 +51,14 @@ export default {
       passwordRules: [
         v => !!v || 'Password is required',
         v => v.length <= 10 || 'Password must be less than 10 characters'
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ]
     }
   },
   methods: {
     async addUser() {
-      if(this.email !== "" && this.password !== "" && this.username !== "") {
+      if(this.username !== "" && this.password !== "") {
         await RegisterService.addUser({
           username: this.username,
-          email: this.email,
           password: this.password
         })
         this.$router.push({ name: 'Home'})

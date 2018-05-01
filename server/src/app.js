@@ -17,16 +17,14 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-// Add new User
+// Register new User
 app.post('/register', (req, res) => {
     var db = req.db;
-    var email = req.body.email;
     var password = req.body.password;
     var username = req.body.username;
 
     var newUser = new User({
         username: username,
-        email: email,
         password: password
     });
 
@@ -38,6 +36,32 @@ app.post('/register', (req, res) => {
             success: true,
             message: "User added!"
         })
+    });
+});
+
+// Login User
+app.get('/login', (req, res) => {
+    var db = req.db;
+    var username = req.query.username;
+    var password = req.query.password;
+
+    User.find({"username": username}, function(error, user) {
+        if(error) {
+            console.log(error);
+        }
+        if(user[0].password === password) {
+            res.send({
+                login: true,
+                userID: user[0]._id 
+            })
+            console.log("true");
+        }
+        else {
+            res.send({
+                login: false
+            })
+            console.log("false");
+        }
     });
 });
 
