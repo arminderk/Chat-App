@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 var mongoose = require('mongoose');
 var User = require('../models/User');
+var Message = require('../models/Message');
 
 mongoose.connect('mongodb://localhost:27017/FinalProject');
 var db = mongoose.connection;
@@ -64,6 +65,42 @@ app.get('/login', (req, res) => {
             })
             console.log("false");
         }
+    });
+});
+
+// Get all Users
+app.get('/users', (req, res) => {
+    User.find({}, '_id username', function(error, users) {
+        if(error) {
+            console.log(error);
+        }
+        res.send({ 
+            users: users
+        });
+    });
+});
+
+// Add new message
+app.post('/messages', (req, res) => {
+    var db = req.db;
+    var message = req.body.message;
+    var to = req.body.to;
+    var from = req.body.from;
+
+    var newMessage = new Message ({
+        to: to,
+        from: from,
+        message: message
+    });
+
+    newMessage.save(function(error) {
+        if(error) {
+            console.log(error);
+        }
+        res.send({
+            saved: true,
+            message: "Message Saved"
+        });
     });
 });
 

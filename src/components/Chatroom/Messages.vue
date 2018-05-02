@@ -3,7 +3,7 @@
     <h1>Messages</h1>
     This file lists all the messages
 
-    <div v-for="message in messages">
+    <div v-for="message in messages" :key="message.id">
         <p>
             <span>{{message.name}}</span><br />
             <span><b>{{message.message}}</b></span>
