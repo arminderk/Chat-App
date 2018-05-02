@@ -29,11 +29,6 @@ export default new Router({
       path: '/chatroom/:userID',
       name: 'Chatroom',
       component: Chatroom
-    },
-    {
-      path: '/messages/new',
-      name: NewMessage,
-      component: NewMessage
     }
   ],
   mode: 'history'

@@ -5,7 +5,7 @@ export default {
     return Api().get('messages')
   },
 
-  addPost(params) {
-    return Api().post('posts', params)
+  addMessage(params) {
+    return Api().post('messages', params)
   }
 }
