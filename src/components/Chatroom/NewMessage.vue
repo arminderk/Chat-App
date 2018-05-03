@@ -33,6 +33,8 @@
         ></v-text-field>
       </v-flex>
       <v-btn color="info" @click="newMessage">Send</v-btn>
+      <p>Message from server: "{{socketMessage}}"</p>
+      <v-btn color="danger" @click="pingServer">Ping</v-btn>
       </v-layout>
     </v-form>
   </div>
@@ -52,13 +54,28 @@ export default {
       messageRules: [
         v => !!v || 'Message is required',
         v => v.length < 120 || 'Message must be less than 121 characters'
-      ]
+      ],
+      isConnected: false,
+      socketMessage: ''
     }
   },
   mounted() {
     this.getUsers()
   },
   props: ['userID', 'username'],
+  sockets: {
+    connect() {
+      // Fired when the socket connects.
+      this.isConnected = true;
+    },
+    disconnect() {
+      this.isConnected = false;
+    },
+    // Fired when the server sends something on the "messageChannel" channel.
+    messageChannel(data) {
+      this.socketMessage = data
+    }
+  },
   methods: {
     async getUsers() {
       await UserService.fetchUsers({
@@ -81,6 +98,10 @@ export default {
       })
       this.toUser = ''
       this.message = ''
+    },
+    pingServer() {
+      // Send the "pingServer" event to the server.
+      this.$socket.emit('pingServer', 'PING!')
     }
   }
 }
