@@ -17,6 +17,16 @@ const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+// Socket Connection
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('pingServer', function(data) {
+        console.log("data: " + data);
+    });
+});
 
 // Register new User
 app.post('/register', (req, res) => {
@@ -155,4 +165,4 @@ app.get('/received', (req, res) => {
 });
 
 const port = 8081;
-app.listen(port, () => console.log(`Server started on port ${port}`));
+http.listen(port, () => console.log(`Server started on port ${port}`));
