@@ -33,10 +33,10 @@
         ></v-text-field>
       </v-flex>
       <v-btn color="info" @click="newMessage">Send</v-btn>
-      <p>Message from server: "{{socketMessage}}"</p>
-      <v-btn color="danger" @click="pingServer">Ping</v-btn>
       </v-layout>
     </v-form>
+    <p>Message from server: "{{socketMessage}}"</p>
+      <v-btn color="danger" @click="pingServer">Ping</v-btn>
   </div>
 </template>
 
@@ -70,10 +70,6 @@ export default {
     },
     disconnect() {
       this.isConnected = false;
-    },
-    // Fired when the server sends something on the "messageChannel" channel.
-    messageChannel(data) {
-      this.socketMessage = data
     }
   },
   methods: {
@@ -102,6 +98,9 @@ export default {
     pingServer() {
       // Send the "pingServer" event to the server.
       this.$socket.emit('pingServer', 'PING!')
+      this.$socket.on('message', function(data) {
+        this.socketMessage = data
+      })
     }
   }
 }
