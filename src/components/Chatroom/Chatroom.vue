@@ -3,15 +3,23 @@
     <v-content>
       <v-container>
         <h1 class="text-xs-center display-2">{{ title }}</h1>
-        <new-message v-bind:userID="userID" v-bind:username="username"></new-message>
+        <v-layout row wrap>
+          <v-flex xs5>
+            <history v-bind:userID="userID"></history>
+          </v-flex>
+          <v-flex xs7>
+            <current-messages v-bind:userID="userID" v-bind:username="username"></current-messages>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import History from '../Messages/History'
+import CurrentMessages from './CurrentMessages'
 import UserService from '@/services/UserService'
-import NewMessage from './NewMessage'
 export default {
   name: 'Chatroom',
   data () {
@@ -22,7 +30,8 @@ export default {
     }
   },
   components: {
-    'new-message': NewMessage
+    'history': History,
+    'current-messages': CurrentMessages,
   },
   mounted() {
     this.getUser()

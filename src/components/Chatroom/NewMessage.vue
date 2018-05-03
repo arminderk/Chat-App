@@ -1,39 +1,39 @@
 <template>
-  <div class="users">
+  <div class="new-message">
     <v-form v-model="valid">
       <v-layout row wrap>
-        <v-flex xs3>
-          <v-subheader>To:</v-subheader>
-        </v-flex>
-        <v-flex xs9>
-          <v-select
-            v-model="toUser"
-            v-bind:items="users"
-            item-text="username"
-            item-value="_id"
-            return-object
-            label="Select User"
-            required
-          >
-          </v-select>
-        </v-flex>
-        <v-flex xs3>
-          <v-subheader>Message:</v-subheader>
-        </v-flex>
-        <v-flex xs9> 
-          <v-text-field
-            label="Enter Message"
-            v-model="message"
-            :rules="messageRules"
-            :counter="120"
-            max="120"
-            multi-line
-            single-line
-            required
-          ></v-text-field>
-        </v-flex>
+      <v-flex xs3>
+        <v-subheader>To:</v-subheader>
+      </v-flex>
+      <v-flex xs9>
+        <v-select
+          v-model="toUser"
+          v-bind:items="users"
+          item-text="username"
+          item-value="_id"
+          return-object
+          label="Select User"
+          required
+        >
+        </v-select>
+      </v-flex>
+      <v-flex xs3>
+        <v-subheader>Message:</v-subheader>
+      </v-flex>
+      <v-flex xs9> 
+        <v-text-field
+          label="Enter Message"
+          v-model="message"
+          :rules="messageRules"
+          :counter="120"
+          max="120"
+          multi-line
+          single-line
+          required
+        ></v-text-field>
+      </v-flex>
+      <v-btn color="info" @click="newMessage">Send</v-btn>
       </v-layout>
-      <v-btn color="info" @click="newMessage">Info</v-btn>
     </v-form>
   </div>
 </template>
@@ -79,6 +79,8 @@ export default {
         },
         message: this.message
       })
+      this.toUser = ''
+      this.message = ''
     }
   }
 }

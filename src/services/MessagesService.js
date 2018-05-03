@@ -1,10 +1,20 @@
 import Api from './Api'
 
 export default {
-  fetchMessages () {
-    return Api().get('messages')
+  sentMessages (params) {
+    return Api().get('/sent', {
+      params: {
+        userID: params.userID
+      }
+    })
   },
-
+  receivedMessages(params) {
+    return Api().get('/received', {
+      params: {
+        userID: params.userID
+      }
+    })
+  },
   addMessage(params) {
     return Api().post('messages', params)
   }

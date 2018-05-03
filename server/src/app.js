@@ -125,5 +125,34 @@ app.post('/messages', (req, res) => {
     });
 });
 
+// Get Sent Messages
+app.get('/sent', (req, res) => {
+    var db = req.db;
+    var userID = req.query.userID;
+
+    Message.find({"from.id": userID}, function(error, sent) {
+        if(error) {
+            console.log(error);
+        }
+        res.send({ 
+            sent: sent
+        });
+    });
+});
+
+app.get('/received', (req, res) => {
+    var db = req.db;
+    var userID = req.query.userID;
+
+    Message.find({"to.id": userID}, function(error, received) {
+        if(error) {
+            console.log(error);
+        }
+        res.send({ 
+            received: received
+        });
+    });
+});
+
 const port = 8081;
 app.listen(port, () => console.log(`Server started on port ${port}`));
