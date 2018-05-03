@@ -1,38 +1,25 @@
 <template>
-  <v-card>
-    <div v-if="sent.length === 0">
-      <v-list two-line>
+  <div id="sent-messages">
+    <v-card>
+      <div v-if="sent.length === 0">
         <template>
-          <v-list-tile
-            avatar
-            ripple
-          >
-            <v-list-tile-content>
-              <v-list-tile-title>No Sent Messages</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+          <v-card-text>
+            No Sent Messages
+          </v-card-text>
           <v-divider></v-divider>
         </template>
-      </v-list>
-    </div>
-    <div v-else>
-      <v-list two-line>
+      </div>
+      <div v-else>
         <template v-for="(message, index) in sent">
-          <v-list-tile
-            avatar
-            ripple
-            :key="message._id"
-          >
-            <v-list-tile-content>
-              <v-list-tile-title>{{ message.to.username }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ message.message }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+          <v-card-text :key="message._id">
+            <h3>To: {{ message.to.username }}</h3>
+            {{ message.message }}
+          </v-card-text>
           <v-divider v-if="index + 1 < sent.length" :key="index"></v-divider>
         </template>
-      </v-list>
-    </div>
-  </v-card>
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -61,3 +48,10 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  #sent-messages {
+    width: 300px;
+    max-width: 300px;
+  }
+</style>
