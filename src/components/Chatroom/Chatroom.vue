@@ -3,24 +3,38 @@
     <v-content>
       <v-container>
         <h1 class="text-xs-center display-2">{{ title }}</h1>
-        <new-message v-bind:userID="userID"></new-message>
+        <new-message v-bind:userID="userID" v-bind:username="username"></new-message>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import UserService from '@/services/UserService'
 import NewMessage from './NewMessage'
 export default {
-  name: 'Home',
+  name: 'Chatroom',
   data () {
     return {
       title: "Chatroom",
-      userID: this.$route.params.userID
+      userID: this.$route.params.userID,
+      username: ''
     }
   },
   components: {
     'new-message': NewMessage
+  },
+  mounted() {
+    this.getUser()
+  },
+  methods: {
+    async getUser() {
+      await UserService.fetchUser({
+        userID: this.$route.params.userID
+      }).then(response => {
+        this.username = response.data.username;
+      }) 
+    }
   }
 }
 </script>

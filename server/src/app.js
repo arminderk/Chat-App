@@ -68,9 +68,27 @@ app.get('/login', (req, res) => {
     });
 });
 
+// Get specific User
+app.get('/user', (req, res) => {
+    var db = req.db;
+    var userID = req.query.userID;
+
+    User.find({_id: userID}, 'username', function(error, user) {
+        if(error) {
+            console.log(error);
+        }
+        res.send({ 
+            username: user[0].username
+        });
+    })
+});
+
 // Get all Users
 app.get('/users', (req, res) => {
-    User.find({}, '_id username', function(error, users) {
+    var db = req.db;
+    var userID = req.query.userID;
+
+    User.find({_id: {$ne: userID}}, '_id username', function(error, users) {
         if(error) {
             console.log(error);
         }
@@ -86,6 +104,9 @@ app.post('/messages', (req, res) => {
     var message = req.body.message;
     var to = req.body.to;
     var from = req.body.from;
+
+    console.log(to);
+    console.log(from);
 
     var newMessage = new Message ({
         to: to,

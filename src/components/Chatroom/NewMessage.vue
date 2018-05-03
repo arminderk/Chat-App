@@ -11,6 +11,7 @@
             v-bind:items="users"
             item-text="username"
             item-value="_id"
+            return-object
             label="Select User"
             required
           >
@@ -32,20 +33,22 @@
           ></v-text-field>
         </v-flex>
       </v-layout>
+      <v-btn color="info" @click="newMessage">Info</v-btn>
     </v-form>
   </div>
 </template>
 
 <script>
 import UserService from '@/services/UserService'
+import MessageService from '@/services/MessagesService'
 export default {
   name: 'NewMessage',
   data () {
     return {
       users: [],
       valid: false,
-      message: '',
       toUser: '',
+      message: '',
       messageRules: [
         v => !!v || 'Message is required',
         v => v.length < 120 || 'Message must be less than 121 characters'
@@ -55,14 +58,27 @@ export default {
   mounted() {
     this.getUsers()
   },
-  props: ['userID'],
+  props: ['userID', 'username'],
   methods: {
     async getUsers() {
-      const response = await UserService.fetchUsers();
-      this.users = response.data.users; 
+      await UserService.fetchUsers({
+        userID: this._props.userID
+      }).then(response => {
+        this.users = response.data.users;
+      }) 
     },
     async newMessage() {
-
+      await MessageService.addMessage({
+        to: {
+          id: this.toUser._id,
+          username: this.toUser.username
+        },
+        from: {
+          id: this._props.userID,
+          username: this._props.username
+        },
+        message: this.message
+      })
     }
   }
 }
