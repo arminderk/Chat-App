@@ -12,7 +12,7 @@
       <div v-else>
         <template v-for="(message, index) in received">
           <v-card-text :key="message._id">
-            <h3>To: {{ message.to.username }}</h3>
+            <h3>From: {{ message.from.username }}</h3>
             {{ message.message }}
           </v-card-text>
           <v-divider v-if="index + 1 < received.length" :key="index"></v-divider>
