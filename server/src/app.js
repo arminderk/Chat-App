@@ -21,10 +21,11 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 // Socket Connection
-io.on('connection', function(socket){
+io.sockets.on('connection', function(socket){
     console.log('a user connected');
-    socket.on('pingServer', function(data) {
-        console.log("data: " + data);
+    socket.on('join', function(data) {
+        socket.join(data.userID);
+        io.sockets.in(data.userID).emit('message', {message: `Only to user ${data.username}`});
     });
 });
 
@@ -93,7 +94,7 @@ app.get('/user', (req, res) => {
     })
 });
 
-// Get all Users
+// Get all Users except current
 app.get('/users', (req, res) => {
     var db = req.db;
     var userID = req.query.userID;

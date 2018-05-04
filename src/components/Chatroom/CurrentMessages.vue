@@ -12,15 +12,35 @@ export default {
   data () {
     return {
       title: "CurrentMessages",
-      messages: []
+      messages: [],
+      socketMessage: ''
     }
   },
   props: ['userID', 'username'],
   components: {
     'new-message': NewMessage
   },
+  mounted() {
+    this.getMessages()
+  },
+  sockets: {
+    connect() {
+      // Fired when the socket connects.
+      this.isConnected = true;
+    },
+    disconnect() {
+      this.isConnected = false;
+    }
+  },
   methods: {
-    
+    getMessages() {
+      console.log(this._props.username);
+      this.$socket.emit('join', {userID: this._props.userID, username: this._props.username})
+      this.$socket.on('message', function(data) {
+        console.log(data.message)
+        this.socketMessage = data.message
+      })
+    }
   }
 
 }

@@ -96,10 +96,10 @@ export default {
       this.message = ''
     },
     pingServer() {
-      // Send the "pingServer" event to the server.
-      this.$socket.emit('pingServer', 'PING!')
+      this.$socket.emit('join', {userID: this.toUser._id, username: this.toUser.username})
       this.$socket.on('message', function(data) {
-        this.socketMessage = data
+        console.log(data.message)
+        this.socketMessage = data.message
       })
     }
   }
