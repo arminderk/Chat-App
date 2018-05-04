@@ -4,7 +4,7 @@
       <v-toolbar>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-sm-and-down">
+        <v-toolbar-items>
           <v-btn flat @click=logout>Logout</v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -61,6 +61,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1 {
-    margin: 35px 0 30px 0;
+    margin: 35px 0 100px 0;
   }
 </style>

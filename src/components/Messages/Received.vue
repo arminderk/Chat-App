@@ -41,7 +41,6 @@ export default {
         userID: this._props.userID
       }).then(response => {
         this.received = response.data.received;
-        console.log(this.received);
       }) 
     }
   }
