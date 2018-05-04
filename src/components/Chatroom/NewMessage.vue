@@ -35,8 +35,7 @@
       <v-btn color="info" @click="newMessage">Send</v-btn>
       </v-layout>
     </v-form>
-    <p>Message from server: "{{socketMessage}}"</p>
-      <v-btn color="danger" @click="pingServer">Ping</v-btn>
+    <v-btn color="danger" @click="pingServer">Ping</v-btn>
   </div>
 </template>
 
@@ -97,6 +96,7 @@ export default {
     },
     pingServer() {
       this.$socket.emit('newMessage', {userID: this.toUser._id, fromUsername: this._props.username, message: this.message})
+      this.$emit('get-message')
     }
   }
 }
