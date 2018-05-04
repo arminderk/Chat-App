@@ -1,6 +1,10 @@
 <template>
   <div class="messages">
     <h1>Messages</h1>
+    <div ref="chatArea"></div>
+    <ul>
+      <li v-for="message in messages">{{ message.fromUsername }} : {{ message.message }}</li>
+    </ul>
     <new-message v-bind:userID="this._props.userID" v-bind:username="this._props.username"></new-message>
   </div>
 </template>
@@ -13,7 +17,6 @@ export default {
     return {
       title: "CurrentMessages",
       messages: [],
-      socketMessage: ''
     }
   },
   props: ['userID', 'username'],
@@ -40,7 +43,9 @@ export default {
     getMessages() {
       this.$socket.on('message', function(data) {
         console.log(`User: ${data.fromUsername}, message: ${data.message}`)
-      })
+        this.messages.push(data)
+        console.log(this.$refs)
+      }.bind(this))
     }
   }
 
