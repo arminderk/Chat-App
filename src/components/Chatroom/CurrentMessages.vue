@@ -21,6 +21,7 @@ export default {
     'new-message': NewMessage
   },
   mounted() {
+    this.joinUserRoom()
     this.getMessages()
   },
   sockets: {
@@ -33,11 +34,12 @@ export default {
     }
   },
   methods: {
-    getMessages() {
-      console.log(this._props.username);
+    joinUserRoom() {
       this.$socket.emit('join', {userID: this._props.userID, username: this._props.username})
+    },
+    getMessages() {
       this.$socket.on('message', function(data) {
-        console.log(data.message)
+        console.log(`User: ${data.username}, message: ${data.message}`)
         this.socketMessage = data.message
       })
     }

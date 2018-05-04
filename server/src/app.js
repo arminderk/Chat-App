@@ -25,7 +25,7 @@ io.sockets.on('connection', function(socket){
     console.log('a user connected');
     socket.on('join', function(data) {
         socket.join(data.userID);
-        io.sockets.in(data.userID).emit('message', {message: `Only to user ${data.username}`});
+        io.sockets.in(data.userID).emit('message', {username: data.username, message: data.message});
     });
 });
 
