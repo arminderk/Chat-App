@@ -96,11 +96,7 @@ export default {
       this.message = ''
     },
     pingServer() {
-      this.$socket.emit('join', {userID: this.toUser._id, username: this.toUser.username, message: this.message})
-      // this.$socket.on('message', function(data) {
-      //   console.log(data.message)
-      //   this.socketMessage = data.message
-      // })
+      this.$socket.emit('newMessage', {userID: this.toUser._id, fromUsername: this._props.username, message: this.message})
     }
   }
 }

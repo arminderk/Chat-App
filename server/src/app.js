@@ -25,7 +25,9 @@ io.sockets.on('connection', function(socket){
     console.log('a user connected');
     socket.on('join', function(data) {
         socket.join(data.userID);
-        io.sockets.in(data.userID).emit('message', {username: data.username, message: data.message});
+    });
+    socket.on('newMessage', function(data) {
+        io.sockets.in(data.userID).emit('message', {fromUsername: data.fromUsername, message: data.message})
     });
 });
 

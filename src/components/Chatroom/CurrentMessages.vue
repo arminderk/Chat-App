@@ -39,8 +39,7 @@ export default {
     },
     getMessages() {
       this.$socket.on('message', function(data) {
-        console.log(`User: ${data.username}, message: ${data.message}`)
-        this.socketMessage = data.message
+        console.log(`User: ${data.fromUsername}, message: ${data.message}`)
       })
     }
   }
