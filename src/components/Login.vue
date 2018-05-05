@@ -3,8 +3,11 @@
     <v-content>
       <v-container>
         <h1 class="text-xs-center">{{msg}}</h1> 
-        <v-alert id="login-alert" v-model="alert" type="error" dismissible>
+        <v-alert id="login-alert" v-model="loginAlert" type="error" dismissible>
           Wrong Username/Password
+        </v-alert>
+        <v-alert id="blank-fields" v-model="blankFields" type="error" dismissible>
+          Required Fields Can't be Blank
         </v-alert>
         <v-form v-model="valid">
           <v-text-field
@@ -42,7 +45,8 @@ export default {
     return {
       msg: 'Login',
       valid: false,
-      alert: false,
+      loginAlert: false,
+      blankFields: false,
       username: '',
       usernameRules: [
         v => !!v || 'Username is required'
@@ -67,9 +71,12 @@ export default {
           }
           else {
             this.$router.push({ name: 'Login' });
-            this.alert = true;
+            this.loginAlert = true;
           }
         })
+      }
+      else {
+        this.blankFields = true;
       }
     }
   }
@@ -83,7 +90,10 @@ export default {
   a {
     text-decoration: none;
   }
-  #login-alert{ 
+  #login-alert { 
     margin: 20px 0 40px 0; 
+  }
+  #blank-fields {
+    margin: 20px 0 40px 0;
   }
 </style>

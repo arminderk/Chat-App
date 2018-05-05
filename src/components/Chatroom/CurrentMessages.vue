@@ -2,9 +2,13 @@
   <div class="messages">
     <h1>Messages</h1>
     <div ref="chatArea"></div>
-    <ul>
-      <li v-for="message in messages">{{ message.fromUsername }} : {{ message.message }}</li>
-    </ul>
+    <div class="chatbox">
+      <div class="chatlogs">
+        <ul>
+          <li v-for="message in messages">{{ message.fromUsername }} : {{ message.message }}</li>
+        </ul>
+      </div>
+    </div>
     <new-message v-bind:userID="this._props.userID" v-bind:username="this._props.username"></new-message>
   </div>
 </template>
@@ -51,3 +55,22 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  .chatbox {
+    width: 500px;
+    min-width: 390px;
+    height: 500px;
+    background: #fff;
+    padding: 25px;
+    margin: 20px auto;
+    overflow-x: hidden;
+    overflow-y: scroll; 
+  }
+  .chatlogs {
+    padding: 10px;
+    width: 100%;
+    height: 450px; 
+    background: #d3d3d3;
+  }
+</style>
