@@ -52,7 +52,7 @@ export default {
       }) 
     },
     logout() {
-      this.$router.push({ name: 'Login' });
+      this.$router.push({ name: 'Home' });
     }
   }
 }
