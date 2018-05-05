@@ -2,36 +2,49 @@
   <v-app dark>
     <v-content>
       <v-container>
-        <h1 class="text-xs-center">{{msg}}</h1> 
         <v-alert id="login-alert" v-model="loginAlert" type="error" dismissible>
           Wrong Username/Password
         </v-alert>
         <v-alert id="blank-fields" v-model="blankFields" type="error" dismissible>
           Required Fields Can't be Blank
         </v-alert>
-        <v-form v-model="valid">
-          <v-text-field
-            label="Username"
-            v-model="username"
-            :rules="usernameRules"
-            required
-          ></v-text-field>
-          <br />
-          <v-text-field
-            label="Password"
-            v-model="password"
-            :rules="passwordRules"
-            :counter="10"
-            required
-          ></v-text-field>
-          <br />
-          <v-layout justify-center>
-            <v-btn color="success" @click="loginUser">Login</v-btn>
-            <router-link :to="{name: 'Home'}">
-              <v-btn>Home</v-btn>
-            </router-link>
-          </v-layout>
-        </v-form>
+          <v-layout align-center justify-center id="login-card">
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Login</v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+              <v-card-text>
+                <v-form v-model="valid">
+                  <v-text-field
+                    label="Username"
+                    v-model="username"
+                    prepend-icon="person"
+                    :rules="usernameRules"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="Password"
+                    v-model="password"
+                    prepend-icon="lock"
+                    :rules="passwordRules"
+                    :counter="10"
+                    required
+                    type="password"
+                  ></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                  <v-btn color="primary" @click="loginUser">Login</v-btn>
+                  <router-link :to="{name: 'Home'}">
+                    <v-btn>Home</v-btn>
+                  </router-link>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
   </v-app>
@@ -43,7 +56,6 @@ export default {
   name: 'Login',
   data () {
     return {
-      msg: 'Login',
       valid: false,
       loginAlert: false,
       blankFields: false,
@@ -84,8 +96,8 @@ export default {
 </script>
 
 <style scoped>
-  h1 {
-    margin: 50px 0;
+  #login-card {
+    margin-top: 100px;
   }
   a {
     text-decoration: none;

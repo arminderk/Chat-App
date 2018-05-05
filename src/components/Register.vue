@@ -2,33 +2,45 @@
   <v-app dark>
     <v-content>
       <v-container>
-        <h1 class="text-xs-center">{{msg}}</h1> 
         <v-alert id="error-alert" v-model="alert" type="error" dismissible>
           Required fields can't be blank
         </v-alert>
-        <v-form v-model="valid">
-          <v-text-field
-            label="Username"
-            v-model="username"
-            :rules="usernameRules"
-            required
-          ></v-text-field>
-          <br />
-          <v-text-field
-            label="Password"
-            v-model="password"
-            :rules="passwordRules"
-            :counter="10"
-            required
-          ></v-text-field>
-          <br />
-          <v-layout justify-center>
-            <v-btn color="info" @click="addUser">Register</v-btn>
-            <router-link :to="{name: 'Home'}">
-              <v-btn>Home</v-btn>
-            </router-link>
-          </v-layout>
-        </v-form>
+        <v-layout align-center justify-center id="register-card">
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="info">
+                <v-toolbar-title>Register</v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+              <v-card-text>
+                <v-form v-model="valid">
+                  <v-text-field
+                    label="Username"
+                    v-model="username"
+                    :rules="usernameRules"
+                    prepend-icon="person"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="Password"
+                    v-model="password"
+                    prepend-icon="lock"
+                    :rules="passwordRules"
+                    :counter="10"
+                    required
+                  ></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="info" @click="addUser">Register</v-btn>
+                <router-link :to="{name: 'Home'}">
+                  <v-btn>Home</v-btn>
+                </router-link>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
   </v-app>
@@ -40,7 +52,6 @@ export default {
   name: 'Register',
   data () {
     return {
-      msg: 'Register',
       valid: false,
       alert: false,
       username: '',
@@ -76,8 +87,8 @@ export default {
 </script>
 
 <style scoped>
-  h1 {
-    margin: 50px 0;
+  #register-card {
+    margin-top: 100px;
   }
   a {
     text-decoration: none;

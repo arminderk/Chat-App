@@ -1,7 +1,7 @@
 <template>
   <div class="messages">
     <h1>{{title}}</h1>
-    <v-layout row wrap>
+    <v-layout zrow wrap>
       <v-tabs
         v-model="active"
         color="cyan"
@@ -51,3 +51,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  h1 {
+    margin-bottom: 10px;
+  }
+</style>

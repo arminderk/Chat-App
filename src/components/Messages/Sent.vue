@@ -53,5 +53,8 @@ export default {
   #sent-messages {
     width: 300px;
     max-width: 300px;
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 </style>

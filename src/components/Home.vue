@@ -6,7 +6,7 @@
         <h2 class="text-xs-center headline">{{intro}}</h2>
         <v-layout justify-center>
           <router-link :to="{name: 'Login'}">
-            <v-btn color="success">Login</v-btn>
+            <v-btn color="primary">Login</v-btn>
           </router-link>
           <router-link :to="{name: 'Register'}">
             <v-btn>Register</v-btn>
