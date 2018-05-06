@@ -14,8 +14,5 @@ export default {
         userID: params.userID
       }
     })
-  },
-  addMessage(params) {
-    return Api().post('messages', params)
   }
 }

@@ -26,8 +26,25 @@ io.sockets.on('connection', function(socket){
     socket.on('join', function(data) {
         socket.join(data.userID);
     });
+
     socket.on('newMessage', function(data) {
-        io.sockets.in(data.userID).emit('message', {fromUsername: data.fromUsername, message: data.message})
+        // Add new message
+        let msgCollection = db.collection('messages');
+        var message = data.message;
+        var to = data.to;
+        var from = data.from;
+
+        if(to !== '' && message !== '' && from !== '') {
+            var newMessage = new Message ({
+                to: to,
+                from: from,
+                message: message
+            });
+        
+            msgCollection.insert(newMessage, function() {
+                io.sockets.in(to.id).emit('message', {fromUsername: from.username, message: message, message_id: newMessage._id})
+            });
+        }
     });
 });
 
@@ -111,39 +128,12 @@ app.get('/users', (req, res) => {
     });
 });
 
-// Add new message
-app.post('/messages', (req, res) => {
-    var db = req.db;
-    var message = req.body.message;
-    var to = req.body.to;
-    var from = req.body.from;
-
-    console.log(to);
-    console.log(from);
-
-    var newMessage = new Message ({
-        to: to,
-        from: from,
-        message: message
-    });
-
-    newMessage.save(function(error) {
-        if(error) {
-            console.log(error);
-        }
-        res.send({
-            saved: true,
-            message: "Message Saved"
-        });
-    });
-});
-
 // Get Sent Messages
 app.get('/sent', (req, res) => {
     var db = req.db;
     var userID = req.query.userID;
 
-    Message.find({"from.id": userID}, function(error, sent) {
+    Message.find({"from.id": userID}).limit(50).exec(function(error, sent){
         if(error) {
             console.log(error);
         }
@@ -157,7 +147,7 @@ app.get('/received', (req, res) => {
     var db = req.db;
     var userID = req.query.userID;
 
-    Message.find({"to.id": userID}, function(error, received) {
+    Message.find({"to.id": userID}).limit(50).exec(function(error, received) {
         if(error) {
             console.log(error);
         }

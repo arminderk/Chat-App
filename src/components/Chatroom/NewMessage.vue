@@ -36,7 +36,6 @@
         <v-btn color="info" @click="newMessage">Send</v-btn>
       </v-layout>
     </v-form>
-    <v-btn color="danger" @click="pingServer">Ping</v-btn>
   </div>
 </template>
 
@@ -52,7 +51,6 @@ export default {
       toUser: '',
       message: '',
       messageRules: [
-        v => !!v || 'Message is required',
         v => v.length < 120 || 'Message must be less than 121 characters'
       ],
       isConnected: false,
@@ -80,8 +78,8 @@ export default {
         this.users = response.data.users;
       }) 
     },
-    async newMessage() {
-      await MessageService.addMessage({
+    newMessage() {
+      this.$socket.emit('newMessage', {
         to: {
           id: this.toUser._id,
           username: this.toUser.username
@@ -94,9 +92,6 @@ export default {
       })
       this.toUser = ''
       this.message = ''
-    },
-    pingServer() {
-      this.$socket.emit('newMessage', {userID: this.toUser._id, fromUsername: this._props.username, message: this.message})
     }
   }
 }
