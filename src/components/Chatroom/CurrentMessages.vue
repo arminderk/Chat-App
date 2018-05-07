@@ -2,9 +2,16 @@
   <div class="messages">
     <h1>Messages</h1>
       <div class="chatlogs">
-        <ul>
+        <!-- <ul>
           <li v-for="message in messages" :key="message._id">{{ message.fromUsername }} : {{ message.message }}</li>
-        </ul>
+        </ul> -->
+        <template v-for="(message, index) in messages">
+          <v-card-text :key="message._id">
+            <h3>{{ message.fromUsername }}:</h3>
+            {{ message.message }}
+          </v-card-text>
+          <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
+        </template>
       </div>
       <new-message v-bind:userID="this._props.userID" v-bind:username="this._props.username"></new-message>
   </div>
@@ -64,8 +71,5 @@ export default {
     background: #A9A9A9;
     overflow-x: hidden;
     overflow-y: scroll; 
-  }
-  ::-webkit-scrollbar {
-    display: none;
   }
 </style>

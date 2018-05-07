@@ -134,7 +134,7 @@ app.get('/sent', (req, res) => {
     var db = req.db;
     var userID = req.query.userID;
 
-    Message.find({"from.id": userID}).limit(50).exec(function(error, sent){
+    Message.find({"from.id": userID}).limit(50).sort({_id: -1}).exec(function(error, sent){
         if(error) {
             console.log(error);
         }
@@ -148,7 +148,7 @@ app.get('/received', (req, res) => {
     var db = req.db;
     var userID = req.query.userID;
 
-    Message.find({"to.id": userID}).limit(50).exec(function(error, received) {
+    Message.find({"to.id": userID}).limit(50).sort({_id: -1}).exec(function(error, received) {
         if(error) {
             console.log(error);
         }

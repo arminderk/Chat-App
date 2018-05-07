@@ -28,6 +28,7 @@
                     :rules="passwordRules"
                     :counter="10"
                     required
+                    type="password"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
