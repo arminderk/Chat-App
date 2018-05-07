@@ -52,7 +52,8 @@ export default {
   #received-messages {
     width: 300px;
     max-width: 300px;
-    height: 400px;
+    height: 350px;
+    max-height: 350px;
     overflow-x: hidden;
     overflow-y: scroll;
   }
