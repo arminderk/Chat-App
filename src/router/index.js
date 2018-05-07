@@ -4,7 +4,6 @@ import Home from '../components/Home'
 import Register from '../components/Register'
 import Login from '../components/Login'
 import Chatroom from '../components/Chatroom/Chatroom';
-import NewMessage from '../components/Chatroom/NewMessage' 
 
 Vue.use(Router)
 

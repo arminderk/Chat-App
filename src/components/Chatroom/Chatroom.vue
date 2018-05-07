@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import History from '../History/History'
-import CurrentMessages from './CurrentMessages'
+import History from './History/History'
+import CurrentMessages from './Messages/CurrentMessages'
 import UserService from '@/services/UserService'
 export default {
   name: 'Chatroom',
