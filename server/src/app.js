@@ -43,6 +43,7 @@ io.sockets.on('connection', function(socket){
         
             msgCollection.insert(newMessage, function() {
                 io.sockets.in(to.id).emit('message', {fromUsername: from.username, message: message, message_id: newMessage._id})
+                io.sockets.in(from.id).emit('message', {fromUsername: from.username, message: message, message_id: newMessage._id})
             });
         }
     });
