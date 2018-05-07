@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import History from '../Messages/History'
+import History from '../History/History'
 import CurrentMessages from './CurrentMessages'
 import UserService from '@/services/UserService'
 export default {
