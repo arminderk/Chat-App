@@ -57,4 +57,7 @@ export default {
     overflow-x: hidden;
     overflow-y: scroll;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 </style>
