@@ -31,7 +31,7 @@ export default {
       received: [],
     }
   },
-  props: ['userID', 'from'],
+  props: ['userID'],
   mounted() {
     this.receivedMessages()
   },

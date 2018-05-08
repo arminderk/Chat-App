@@ -13,7 +13,7 @@
           <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
         </template>
       </div>
-      <new-message v-on:new-message="newMessage" v-bind:userID="this._props.userID" v-bind:username="this._props.username"></new-message>
+      <new-message v-bind:userID="this._props.userID" v-bind:username="this._props.username"></new-message>
   </div>
 </template>
 
@@ -53,9 +53,6 @@ export default {
         // console.log(`User: ${data.fromUsername}, message: ${data.message}, message_id: ${data.message_id}`)
         this.messages.push(data)
       }.bind(this))
-    },
-    newMessage(message) {
-      this.$emit('new-message', message)
     }
   }
 

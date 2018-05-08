@@ -32,7 +32,7 @@ export default {
       sent: [],
     }
   },
-  props: ['userID', 'to'],
+  props: ['userID'],
   mounted() {
     this.sentMessages()
   },
