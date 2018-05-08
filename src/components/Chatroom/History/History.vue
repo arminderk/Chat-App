@@ -20,10 +20,10 @@
           :key="n"
         >
           <div v-if="n == 'Sent'">
-            <sent v-bind:userID="userID"></sent>
+            <sent v-bind:to="sentMsg"  v-bind:userID="userID"></sent>
           </div>
           <div v-else>
-            <received v-bind:userID="userID"></received>
+            <received v-bind:from="receivedMsg" v-bind:userID="userID"></received>
           </div>
         </v-tab-item>
       </v-tabs>
@@ -41,10 +41,18 @@ export default {
     return {
       title: "History",
       active: null,
-      components: ["Sent", "Received"]
+      components: ["Sent", "Received"],
+      receivedMsg: {
+        from: this._props.newMsg.from,
+        message: this._props.newMsg.message
+      },
+      sentMsg: {
+        to: this._props.newMsg.to,
+        message: this._props.newMsg.message
+      }
     }
   },
-  props: ['userID'],
+  props: ['userID', 'newMsg'],
   components: {
     sent: Sent,
     received: Received

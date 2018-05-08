@@ -79,7 +79,7 @@ export default {
       }) 
     },
     newMessage() {
-      this.$socket.emit('newMessage', {
+      var newMessage = {
         to: {
           id: this.toUser._id,
           username: this.toUser.username
@@ -89,7 +89,11 @@ export default {
           username: this._props.username
         },
         message: this.message
-      })
+      }
+
+      this.$socket.emit('newMessage', {newMessage})
+      this.$emit('new-message', newMessage)
+
       this.toUser = ''
       this.message = ''
     }

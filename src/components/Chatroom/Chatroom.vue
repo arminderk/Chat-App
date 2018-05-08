@@ -12,10 +12,10 @@
         <h1 class="text-xs-center display-2">Welcome {{ username }}</h1>
         <v-layout row wrap>
           <v-flex xs5>
-            <history v-bind:userID="userID"></history>
+            <history v-bind:newMsg="this.newMsg" v-bind:userID="userID"></history>
           </v-flex>
           <v-flex xs7>
-            <current-messages v-bind:userID="userID" v-bind:username="username"></current-messages>
+            <current-messages v-on:new-message="newMessage" v-bind:userID="userID" v-bind:username="username"></current-messages>
           </v-flex>
         </v-layout>
       </v-container>
@@ -33,7 +33,8 @@ export default {
     return {
       title: "Chatroom",
       userID: this.$route.params.userID,
-      username: ''
+      username: '',
+      newMsg: {}
     }
   },
   components: {
@@ -50,6 +51,10 @@ export default {
       }).then(response => {
         this.username = response.data.username;
       }) 
+    },
+    newMessage(message) {
+      this.newMsg = message
+      console.log(this.newMsg)
     },
     logout() {
       this.$router.push({ name: 'Home' });

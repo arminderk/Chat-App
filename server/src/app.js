@@ -30,9 +30,9 @@ io.sockets.on('connection', function(socket){
     socket.on('newMessage', function(data) {
         // Add new message
         let msgCollection = db.collection('messages');
-        var message = data.message;
-        var to = data.to;
-        var from = data.from;
+        var message = data.newMessage.message;
+        var to = data.newMessage.to;
+        var from = data.newMessage.from;
 
         if(to !== '' && message !== '' && from !== '') {
             var newMessage = new Message ({
