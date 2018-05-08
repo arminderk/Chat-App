@@ -34,6 +34,7 @@ export default {
   props: ['userID'],
   mounted() {
     this.receivedMessages()
+    this.socketReceivedMessage()
   },
   methods: {
     async receivedMessages() {
@@ -42,6 +43,12 @@ export default {
       }).then(response => {
         this.received = response.data.received;
       }) 
+    },
+    socketReceivedMessage() {
+      this.$socket.on('received', function(data) {
+        // console.log(`Username: ${data.newMessage}`)
+        this.received.unshift(data.newMessage)
+      }.bind(this))
     }
   }
 

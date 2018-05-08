@@ -91,7 +91,7 @@ export default {
         message: this.message
       }
 
-      this.$socket.emit('newMessage', {newMessage})
+      this.$socket.emit('newMessage', {newMessage: newMessage})
 
       this.toUser = ''
       this.message = ''

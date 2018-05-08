@@ -35,6 +35,7 @@ export default {
   props: ['userID'],
   mounted() {
     this.sentMessages()
+    this.socketSentMessage()
   },
   methods: {
     async sentMessages() {
@@ -43,6 +44,12 @@ export default {
       }).then(response => {
         this.sent = response.data.sent;
       }) 
+    },
+    socketSentMessage() {
+      this.$socket.on('sent', function(data) {
+        // console.log(`Username: ${data.newMessage}`)
+        this.sent.unshift(data.newMessage)
+      }.bind(this))
     }
   }
 
