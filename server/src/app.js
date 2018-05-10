@@ -23,10 +23,13 @@ var io = require('socket.io')(http);
 // Socket Connection
 io.sockets.on('connection', function(socket){
     console.log('a user connected');
+
+    // Join a user to their own private room
     socket.on('join', function(data) {
         socket.join(data.userID);
     });
 
+    // A new message was created
     socket.on('newMessage', function(data) {
         // Add new message
         let msgCollection = db.collection('messages');
@@ -40,8 +43,11 @@ io.sockets.on('connection', function(socket){
                 from: from,
                 message: message
             });
-        
+            
+            // Insert the message into the DB
             msgCollection.insert(newMessage, function() {
+                
+                // Emit the newly create message to sender and receiver
                 io.sockets.in(to.id).emit('message', {fromUsername: from.username, message: message, message_id: newMessage._id})
                 io.sockets.in(from.id).emit('message', {fromUsername: from.username, message: message, message_id: newMessage._id})
                 io.sockets.in(from.id).emit('sent', {newMessage: newMessage})

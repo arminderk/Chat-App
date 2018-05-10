@@ -2,9 +2,6 @@
   <div class="messages">
     <h1>Messages</h1>
       <div class="chatlogs">
-        <!-- <ul>
-          <li v-for="message in messages" :key="message._id">{{ message.fromUsername }} : {{ message.message }}</li>
-        </ul> -->
         <template v-for="(message, index) in messages">
           <v-card-text :key="message._id">
             <h3>{{ message.fromUsername }}:</h3>
