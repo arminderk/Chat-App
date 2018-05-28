@@ -8,7 +8,7 @@ This is a full-stack web application which allows two users to communicate with 
 
 The goal was to get an understanding of Vue.js on the front-end, MongoDB on the backend, and how to connect the two together. Vue.js components allowed me to organize my code and provide a seamless user experience. I was also able to use vue-router which took care of the routing on the front-end of the application. Using Mongoose, I was able to set up models which specified schemas of how the data should be inserted into the MongoDB database.
 
-# Technologies Used
+## Technologies Used
 * MongoDB
 * Express.js
 * Vue.js
@@ -16,8 +16,8 @@ The goal was to get an understanding of Vue.js on the front-end, MongoDB on the 
 * Axios
 * Socket.io
 
-# Running the app locally
-## Client Side
+## Running the app locally
+### Client Side
 
 ``` bash
 # install dependencies
@@ -27,7 +27,7 @@ npm install
 npm run dev
 ```
 
-## Server Side
+### Server Side
 ``` bash
 # cd into server file
 npm install (to install dependencies)
