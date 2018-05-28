@@ -16,6 +16,7 @@ The goal was to get an understanding of Vue.js on the front-end, MongoDB on the 
 * Axios
 * Socket.io
 
+# Running the app locally
 ## Client Side
 
 ``` bash
