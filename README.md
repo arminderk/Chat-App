@@ -1,4 +1,4 @@
-# chat-app
+# Veutified Chat
 
 > Real time chat application
 
